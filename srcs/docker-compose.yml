@@ -2,15 +2,69 @@ version: '3'
 
 services:
   mariadb:
-    build: 
+    container_name: mariadb
     image: mariadb
+    build: ./requirements/mariadb # 이미지를 자체 빌드하기 위해 작성
+    restart: always
+    volumes:
+      - db_vol:/var/lib/mysql
+    networks:
+      - inception
+    expose: #expose는 호스트 내부의 다른 컨테이너들만 액세스 가능 
+      - "3306"
+    env_file:
+      - .env
+    
+  wordpress:
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress
+    volumes:
+      - wp_vol:/var/www/wordpress
+    restart: always
+    networks:
+      - inception
+    expose:
+      - "9000"
+    env_file:
+      - .env
 
   nginx:
+    depends_on:
+      - wordpress
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx
+    volumes:
+      - wp_vol:/var/www/wordpress
+    ports: # 설정한 호스트 포트번호로 호스트 외부의 다른 호스트들도 호스트 포트번호로 엑세스 가능
+      -"443:443"
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - .env
 
-
-  wordpress:
-
-  
 networks:
+  inception:
+    name: inception
+    driver: bridge
 
 volumes:
+  db_vol:
+    name: db_vol
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/junylee/data/mariadb
+
+  wp_vol:
+    name: wp_vol
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/junylee/data/wordpress
