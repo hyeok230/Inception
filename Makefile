@@ -4,9 +4,9 @@ DB_PATH=/home/junylee/data
 all : $(NAME)
 
 $(NAME) :
-	mkdir -p $(DB_PATH)
-	mkdir -p $(DB_PATH)/mariadb
-	mkdir -p $(DB_PATH)/wordpress
+	sudo mkdir -p $(DB_PATH)
+	sudo mkdir -p $(DB_PATH)/mariadb
+	sudo mkdir -p $(DB_PATH)/wordpress
 	make up
 
 init : 
