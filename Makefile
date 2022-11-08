@@ -13,10 +13,10 @@ init :
 	sudo echo "127.0.0.1	junylee.42.fr" >> /etc/hosts
 
 up :
-	docker-compose -f ./srcs/docker-comse.yml up --build
+	docker-compose -f ./srcs/docker-compose.yml up --build
 
 down :
-	docker-compose -f ./srcs/docker-comse.yml down
+	docker-compose -f ./srcs/docker-compose.yml down
 
 clean : down
 	sudo rm -rf $(DB_PATH)
