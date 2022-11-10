@@ -10,7 +10,7 @@ $(NAME) :
 	make up
 
 init : 
-	sudo echo "127.0.0.1	junylee.42.fr" >> /etc/hosts
+	echo '127.0.0.1	junylee.42.fr' | sudo tee -a /etc/hosts
 	
 up :
 	docker-compose -f ./srcs/docker-compose.yml up --build
