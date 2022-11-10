@@ -40,7 +40,7 @@ services:
     volumes:
       - wp_vol:/var/www/wordpress
     ports: # 설정한 호스트 포트번호로 호스트 외부의 다른 호스트들도 호스트 포트번호로 엑세스 가능
-      -"443:443"
+      - "443:443"
     restart: always
     networks:
       - inception
