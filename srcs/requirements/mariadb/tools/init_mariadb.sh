@@ -11,7 +11,7 @@ if [ $? -ne 0 ]; then
 	mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%'";
 	mysql -e "FLUSH PRIVILEGES";	
 	mysql -e "ALTER USER '$DB_ROOT'@'localhost' IDENTIFIED BY '$DB_ROOTPWD'";
-	mysql $DB_NAME -u$DB_ROOT -p$DB_ROOTPWD;
+#	mysql $DB_NAME -u$DB_ROOT -p$DB_ROOTPWD;
 	mysqladmin -u$DB_ROOT -p$DB_ROOTPWD shutdown
 	touch /var/lib/mysql/.setup
 fi
